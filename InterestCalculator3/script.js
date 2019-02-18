@@ -7,7 +7,13 @@ window.onload = function()
 }
 
 
-// Det som ska matas ut är årsräntan så bara en knapp och input box behöves. Samt en output text.
+
+
+// ----------------------------- Description of what the intention of this app is -----------------------------
+
+// What should be fed out in the HTML is the interest depending on the number in the input. 
+// JSON is the decider of what the yearly interest should be. The yearly interest is intended to be the output.
+
 
 function loadJson()
 {

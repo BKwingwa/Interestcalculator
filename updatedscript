@@ -1,0 +1,93 @@
+// this is the updated script which I tried to comment to make things more clear on how things were fixed.
+// If you want to get a bigger picture on what was change u can compare the old to this one 
+// and try to see how things were changed if u compare the things changed, if you're really interested.
+
+window.onload = function() // addeventlistener has to be intiated or it wont be available to be used.
+{
+    var btn = document.getElementById('btnJson').addEventListener('click', loadJson);
+    
+  //  var principal = document.getElementById('principal').value; // had to be moved to the calculateInterest function.
+}
+
+// ----------------------------- Description of what the intention of this app is -----------------------------
+
+// What should be fed out in the HTML is the interest depending on the number in the input. 
+// JSON is the decider of what the yearly interest should be. The yearly interest is intended to be the output.
+
+
+function loadJson() // loads the json, another type of ajax call call kind off. 
+{
+    
+
+    var requestURL = 'interest.json';
+
+    var request = new XMLHttpRequest();
+
+    request.open('GET', requestURL);
+
+    request.responseType = 'json';
+    request.send();
+
+
+    request.onload = function()
+    {
+        
+        var jsonResponse = request.response;
+        calculateInterest(jsonResponse);
+    }
+    
+
+    
+    function calculateInterest(jsonResponse) // calculates what interest should be set depending on what value that
+    {   // gets in to the function.
+       // console.log(jsonResponse);
+        var principal = Number(document.getElementById('principal').value); // input number values with the help off the
+        // number method.
+
+        for(let i = 0; i < jsonResponse.length; i++){ // Basically runs through all the objects got from the array in
+            // in 'interest.json'. It basically checks the same way what interest should be shown in paragraph
+             // depending on what number is input in the input box but it runs all the objects
+
+             // this for loop checks the the conditions for every object and sees if it matches the number.
+            if (principal >= jsonResponse[i].from && principal <= jsonResponse[i].up_to)
+            {
+                 document.getElementById('paragraph').innerHTML = 'Årsräntan blir: ' +jsonResponse[i].interest +'%';
+                 // meant to be a swedish project but it basically says 'Yearly salary is: 
+            }
+
+
+        }
+        
+        /*
+        else if (principal >= jsonResponse[1].from && principal <= jsonResponse[1].up_to)
+        {
+         
+            document.getElementById('paragraph').innerHTML = 'Årsräntan blir: ' +jsonResponse[1].interest +'%';
+        }
+
+        else if (principal >= jsonResponse[2].from && principal <= jsonResponse[2].up_to)
+        {
+            document.getElementById('paragraph').innerHTML = 'Årsräntan blir: ' +jsonResponse[2].interest +'%';
+        }
+
+        else if (principal >= jsonResponse[3].from && principal <= jsonResponse[3].up_to)
+        {
+            document.getElementById('paragraph').innerHTML = 'Årsräntan blir: ' +jsonResponse[3].interest +'%';
+        }
+
+        else if (principal >= jsonResponse[4].from && principal <= jsonResponse[4].up_to)
+        {
+            document.getElementById('paragraph').innerHTML = 'Årsräntan blir: ' +jsonResponse[4].interest +'%';
+        }
+
+        else if (principal >= jsonResponse[5].from && principal <= jsonResponse[5].up_to)
+        {
+            document.getElementById('paragraph').innerHTML = 'Årsräntan blir: ' +jsonResponse[5].interest + '%';
+        }           
+       */ 
+    }
+    
+}
+
+//var btn = document.getElementById('btnJSON').addEventListener('click', loadJson);
+
